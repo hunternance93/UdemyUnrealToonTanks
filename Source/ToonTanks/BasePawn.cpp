@@ -38,5 +38,11 @@ void ABasePawn::Tick(float DeltaTime)
 
 }
 
+void ABasePawn::RotateTurret(FVector LookAtTarget)
+{
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+	FRotator TurretRotation = FRotator(0, FVector(LookAtTarget - StartLocation).Rotation().Yaw, 0);
+	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), TurretRotation, GetWorld()->DeltaTimeSeconds, TurretRotationSpeed));
+}
 
 

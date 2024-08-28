@@ -20,6 +20,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TurretMesh;
+
+	void RotateTurret(FVector LookAtTarget);
+
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
@@ -29,6 +33,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint;
+
+	float TurretRotationSpeed = 18.f;
 
 
 public:	

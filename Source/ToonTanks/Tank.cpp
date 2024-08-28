@@ -60,8 +60,8 @@ void ATank::Turn(float Value) {
 	AddActorLocalRotation(Rotation, true);
 }
 
-void ATank::RotateTurret(FVector LookAtTarget) {
+/*void ATank::RotateTurret(FVector LookAtTarget) {
 	FVector StartLocation = TurretMesh->GetComponentLocation();
 	FRotator TurretRotation = FRotator(0, FVector(LookAtTarget - StartLocation).Rotation().Yaw, 0);
-	TurretMesh->SetWorldRotation(TurretRotation);
-}
+	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), TurretRotation, GetWorld()->DeltaTimeSeconds, 25.f));
+}*/
