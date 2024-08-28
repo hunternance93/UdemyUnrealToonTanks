@@ -17,6 +17,7 @@ class TOONTANKS_API ATank : public ABasePawn
 public:
 	ATank();
 
+	virtual void Tick(float DeltaTime) override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
@@ -25,16 +26,22 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* Camera;
 
+	APlayerController* PlayerControllerRef;
+
 public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void BeginPlay() override;
 
 	UFUNCTION(Blueprintcallable)
 	void Move(float Value);
 
 	UFUNCTION(Blueprintcallable)
 	void Turn(float Value);
+
+	void RotateTurret(FVector LookAtTarget);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = 0.0, ClampMax = 1000.0))
 	float MoveSpeed = 100.0f;

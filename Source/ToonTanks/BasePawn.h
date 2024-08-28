@@ -18,15 +18,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* TurretMesh;
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Pawn Components")
 	UStaticMeshComponent* BaseMesh;
-
-	UPROPERTY(VisibleAnywhere, Category = "Pawn Components")
-	UStaticMeshComponent* TurretMesh;
 
 	UPROPERTY(EditAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint;

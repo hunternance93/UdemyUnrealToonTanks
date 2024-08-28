@@ -4,6 +4,7 @@
 #include "Tank.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "DrawDebugHelpers.h"
 
 ATank::ATank()
 {
@@ -22,6 +23,27 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void ATank::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+
+	if (!PlayerControllerRef) return;
+
+	FHitResult TraceHitResult;
+	PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, TraceHitResult);
+	FVector HitLocation = TraceHitResult.ImpactPoint;
+
+	DrawDebugSphere(GetWorld(), HitLocation, 25, 12, FColor::Red, false, -1);
+
+	RotateTurret(HitLocation);
+
+}
+
+void ATank::BeginPlay() {
+	Super::BeginPlay();
+
+	PlayerControllerRef = Cast<APlayerController>(GetController());
+}
+
 void ATank::Move(float Value)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Move C++: %f"), Value);
@@ -36,4 +58,10 @@ void ATank::Turn(float Value) {
 	FRotator Rotation = FRotator(0, Value * GetWorld()->DeltaTimeSeconds * TurnRate, 0);
 	// Move the tank
 	AddActorLocalRotation(Rotation, true);
+}
+
+void ATank::RotateTurret(FVector LookAtTarget) {
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+	FRotator TurretRotation = FRotator(0, FVector(LookAtTarget - StartLocation).Rotation().Yaw, 0);
+	TurretMesh->SetWorldRotation(TurretRotation);
 }
