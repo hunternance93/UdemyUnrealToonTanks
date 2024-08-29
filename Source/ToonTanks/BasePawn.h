@@ -27,6 +27,9 @@ protected:
 	UFUNCTION(Blueprintcallable)
 	void Fire();
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	UParticleSystem* ExplosionParticle;
+
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Pawn Components", meta = (AllowPrivateAccess = "true"))
