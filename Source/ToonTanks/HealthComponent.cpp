@@ -2,6 +2,7 @@
 
 
 #include "HealthComponent.h"
+#include "ToonTanksGameMode.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -19,6 +20,8 @@ void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ToonTanksGameMode = Cast<AToonTanksGameMode>(GetWorld()->GetAuthGameMode());
+
 	Health = MaxHealth;
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
 }
@@ -35,4 +38,14 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, class AController* Instigator, AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Warning, TEXT("DamageTaken"));
+	Health -= Damage;
+	if (Health <= 0) {
+		if (ToonTanksGameMode) {
+			ToonTanksGameMode->ActorDied(DamagedActor);
+			UE_LOG(LogTemp, Warning, TEXT("Health is 0"));
+		}
+		else {
+			UE_LOG(LogTemp, Warning, TEXT("Health Component has no reference to the GameMode"));
+		}
+	}
 }

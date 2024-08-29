@@ -26,7 +26,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* Camera;
 
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 
 public:
 
@@ -46,4 +46,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float TurnRate = 100.0f;
+
+	void HandleDestruction();
+
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
 };

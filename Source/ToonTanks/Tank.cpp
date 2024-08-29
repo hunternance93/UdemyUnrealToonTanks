@@ -26,10 +26,10 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ATank::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
-	if (!PlayerControllerRef) return;
+	if (!TankPlayerController) return;
 
 	FHitResult TraceHitResult;
-	PlayerControllerRef->GetHitResultUnderCursor(ECC_Visibility, false, TraceHitResult);
+	TankPlayerController->GetHitResultUnderCursor(ECC_Visibility, false, TraceHitResult);
 	FVector HitLocation = TraceHitResult.ImpactPoint;
 
 	DrawDebugSphere(GetWorld(), HitLocation, 25, 12, FColor::Red, false, -1);
@@ -41,7 +41,7 @@ void ATank::Tick(float DeltaTime) {
 void ATank::BeginPlay() {
 	Super::BeginPlay();
 
-	PlayerControllerRef = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 }
 
 void ATank::Move(float Value)
@@ -60,7 +60,8 @@ void ATank::Turn(float Value) {
 	AddActorLocalRotation(Rotation, true);
 }
 
-/*void ATank::Fire() {
-	UE_LOG(LogTemp, Warning, TEXT("Fire!"));
-	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 50, 12, FColor::Red, false, 3);
-}*/
+void ATank::HandleDestruction() {
+	Super::HandleDestruction();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}

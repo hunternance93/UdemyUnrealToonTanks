@@ -51,4 +51,8 @@ void ABasePawn::Fire() {
 	Projecitle->SetOwner(this);
 }
 
+void ABasePawn::HandleDestruction() {
+	Destroy();
+}
+
 
