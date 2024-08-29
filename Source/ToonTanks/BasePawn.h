@@ -38,6 +38,9 @@ private:
 
 	float TurretRotationSpeed = 18.f;
 
+	UPROPERTY(EditAnywhere, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AProjectile> ProjectileClass;
+
 
 public:	
 	// Called every frame
