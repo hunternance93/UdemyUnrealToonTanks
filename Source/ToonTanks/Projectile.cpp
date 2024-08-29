@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Projectile.h"
+#include "Engine/DamageEvents.h"
+#include "GameFramework/DamageType.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -34,10 +35,15 @@ void AProjectile::Tick(float DeltaTime)
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) {
-	UE_LOG(LogTemp, Warning, TEXT("OnHit"));
-	UE_LOG(LogTemp, Warning, TEXT("HitComp: %s"), *HitComp->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s"), *OtherActor->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherComp: %s"), *OtherComp->GetName());
+	auto MyOwner = GetOwner();
+	if (!MyOwner) return;
+	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
 
+	if (OtherActor && OtherActor != this && OtherActor != MyOwner) {
+		//FDamageEvent Event = new FDamageEvent(UDamageType::StaticClass());
+		FDamageEvent Event(UDamageType::StaticClass());
+		OtherActor->TakeDamage(Damage, Event, MyOwnerInstigator, this);
+		Destroy();
+	}
 }
 
