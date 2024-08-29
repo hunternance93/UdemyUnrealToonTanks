@@ -24,5 +24,9 @@ private:
 	class ATank* PlayerTank;
 
 	float FireRange = 1000.0f;
+
+	FTimerHandle FireRateTimerHandle;
+	float FireRate = 2.f;
+	void CheckFireCondition();
 	
 };

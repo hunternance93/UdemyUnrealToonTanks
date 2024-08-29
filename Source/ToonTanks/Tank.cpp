@@ -60,8 +60,7 @@ void ATank::Turn(float Value) {
 	AddActorLocalRotation(Rotation, true);
 }
 
-/*void ATank::RotateTurret(FVector LookAtTarget) {
-	FVector StartLocation = TurretMesh->GetComponentLocation();
-	FRotator TurretRotation = FRotator(0, FVector(LookAtTarget - StartLocation).Rotation().Yaw, 0);
-	TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), TurretRotation, GetWorld()->DeltaTimeSeconds, 25.f));
+/*void ATank::Fire() {
+	UE_LOG(LogTemp, Warning, TEXT("Fire!"));
+	DrawDebugSphere(GetWorld(), ProjectileSpawnPoint->GetComponentLocation(), 50, 12, FColor::Red, false, 3);
 }*/

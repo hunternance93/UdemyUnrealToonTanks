@@ -22,6 +22,8 @@ protected:
 	UStaticMeshComponent* TurretMesh;
 
 	void RotateTurret(FVector LookAtTarget);
+	UFUNCTION(Blueprintcallable)
+	void Fire();
 
 
 private:

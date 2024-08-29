@@ -41,8 +41,6 @@ public:
 	UFUNCTION(Blueprintcallable)
 	void Turn(float Value);
 
-	//void RotateTurret(FVector LookAtTarget);
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (ClampMin = 0.0, ClampMax = 1000.0))
 	float MoveSpeed = 100.0f;
 
