@@ -40,4 +40,6 @@ private:
 	UPROPERTY()
 	float Damage = 50;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class UParticleSystem* HitParticles;
 };
