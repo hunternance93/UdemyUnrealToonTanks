@@ -54,6 +54,7 @@ void ABasePawn::Fire() {
 
 void ABasePawn::HandleDestruction() {
 	if (ExplosionParticle) UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionParticle, GetActorLocation());
+	if (DeathSound) UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 	Destroy();
 }
 
