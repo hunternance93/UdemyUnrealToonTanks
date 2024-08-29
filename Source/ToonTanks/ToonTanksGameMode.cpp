@@ -33,6 +33,8 @@ void AToonTanksGameMode::HandleGameStart() {
 	Tank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	ToonTanksPlayerController = Cast<AToonTanksPlayerController>(GetWorld()->GetFirstPlayerController());
 
+	StartGame();
+
 	if (ToonTanksPlayerController) {
 		ToonTanksPlayerController->SetPlayerEnabledState(false);
 
